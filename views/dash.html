@@ -1,0 +1,53 @@
+<section class="mt-3" >
+		
+	<form  name="addForm" novalidate ng-submit="addWeight()">
+		<div class="form-row">
+		
+			<div class="col">
+				<input type="number" name="Weight" min="1" max="1000" placeholder="Weight" 
+					class="form-control form-control-lg" aria-describedby="weightHelp"
+					ng-model="newWeight" ng-required="true" ng-pattern="string">
+				<small id="weightHelp" class="form-text text-muted">Number from 1 to 1000</small>
+			</div>
+			<div class="col-2 text-right">
+				<button class="btn btn-lg btn-outline-light" type="submit" ng-disabled="addForm.$invalid">
+					Add
+				</button>
+				<!--button class="btn btn-lg btn-outline-light" ng-click="loadDummyData()">
+					Dummy
+				</button-->
+			</div>
+		</div>
+	</form>
+
+</section>
+
+<section class="row mt-3">
+	<div class="col">
+		<table class="table table-border table-inverse">
+		  <thead class="bg-success">
+		    <tr>
+		      <th>#</th>
+		      <th>Weight</th>
+		      <th>Date</th>
+		      <th>Options</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr ng-repeat="r in weightRecords | orderBy:'date':true">
+		      <th scope="row">{{$index + 1}}</th>
+		      <td>{{r.weight}} {{r.unit}}</td>
+		      <td>{{r.date | date: 'MMM dd yyyy HH:mm:ss'}}</td>
+		      <td>
+		      	<button class="btn btn-sm btn-outline-danger" ng-click="deleateRecord(r)">
+				Delete
+			</button>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+		<div class="alert alert-danger text-center" role="alert" ng-if="weightRecords.length == 0">
+ 			No records yet
+		</div>
+	</div>
+</section>

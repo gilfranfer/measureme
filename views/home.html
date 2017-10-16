@@ -1,0 +1,25 @@
+<section>
+  <div class="row mt-4 text-light">
+    <div class="col">
+      <h1 class="display-4">Measure me</h1>
+      <hr class="my-4">
+      <p class="lead">
+        Keep a record of your weight.
+      </p>
+    </div>
+  </div>
+
+  <div class="row" ng-if="!currentUser">
+    <div class="col">
+      <a role="button" class="btn btnj btn-outline-warning btn-lg btn-block" href="#!/register">Register today</a>
+    </div>
+    <div class="col">
+      <a role="button" class="btn btnj btn-outline-light btn-lg btn-block" href="#!/login">or Log in now</a>      
+    </div>
+  </div>
+  <div class="row" ng-if="currentUser">
+    <div class="col">
+      <a role="button" class="btn btnj btn-outline-warning btn-lg btn-block" href="#!/dashboard">Go to Dashboard</a>
+    </div>
+  </div>
+</section>
