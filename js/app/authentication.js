@@ -24,8 +24,9 @@ mmeApp.factory( 'AuthenticationSvc',
 	function($rootScope, $location,$firebaseObject,$firebaseAuth){
 
 		var auth = $firebaseAuth();
-		var usersFolder = firebase.database().ref().child('members');
+		var usersFolder = firebase.database().ref().child('users');
 		var loginSuccessPage = '/dashboard';
+		var logoutSuccessPage = '/home';
 
 		auth.$onAuthStateChanged( function(authUser){
     		if(authUser && !$rootScope.currentUser){
@@ -41,7 +42,7 @@ mmeApp.factory( 'AuthenticationSvc',
 		var cleanRootScope = function(){
 			for (var prop in $rootScope) {
 			    if (prop.substring(0,1) !== '$') {
-					//console.log("Rootscope Prop: "+prop);
+					console.log("Rootscope Prop: "+prop);
 			        delete $rootScope[prop];
 			    }
 			}
@@ -59,12 +60,12 @@ mmeApp.factory( 'AuthenticationSvc',
 			},
 			logout: function(){
 				auth.$signOut();
-				$location.path( "/home" );
+				$location.path( logoutSuccessPage );
 			},
 			isUserLoggedIn: function(){
 				return auth.$requireSignIn();
 			},
-			register: function(user, currentAppVersion){
+			register: function(user){
 				auth.$createUserWithEmailAndPassword(user.email, user.pwd)
 					.then(
 						function(regUser){
@@ -73,7 +74,7 @@ mmeApp.factory( 'AuthenticationSvc',
 								lastname: user.lastname,
 								email: user.email,
 								userid: regUser.uid,
-								date: firebase.database.ServerValue.TIMESTAMP,
+								date: firebase.database.ServerValue.TIMESTAMP
 							});
 							$location.path( loginSuccessPage );
 						}

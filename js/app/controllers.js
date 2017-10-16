@@ -3,9 +3,9 @@ mmeApp.controller('MeasuresCtrl', ['$scope', '$rootScope', '$firebaseArray', '$f
 
 		var auth = $firebaseAuth();
 		auth.$onAuthStateChanged( function(authUser){
-    		if(authUser){
+    		if(authUser && !$scope.weightRecords){
 				console.log("MeasuresCtrl - Initialization");
-				let weightHistoryQuery = firebase.database().ref().child('members')
+				let weightHistoryQuery = firebase.database().ref().child('users')
 					.child(authUser.uid).child('measures/weight');
 				let weightArray = $firebaseArray( weightHistoryQuery );
 				$scope.weightRecords = weightArray;
